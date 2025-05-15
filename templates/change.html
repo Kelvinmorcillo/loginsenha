@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>mudar senha</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <h1>Login com sucesso</h1>
+    <p>Digite seu usuario e a nova senha</p>
+    <form method="post" action="/change">
+        <p> Usuario: <input type="text" name="username" required></p>
+        <p>Nova senha: <input type="password" name="npassword" required></p>
+        <button type ="submit">Mudar senha</button>
+    </form>
+
+</body>
+
+
+
+
+</html>

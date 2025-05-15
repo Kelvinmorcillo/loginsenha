@@ -1,0 +1,118 @@
+/* === Global Resets & Base Styles === */
+html, body {
+   height: 100%; /* Makes the container tall enough for vertical centering */
+   margin: 0;    /* Removes default browser margin */
+   padding: 0;   /* Removes default browser padding */
+
+   background-color: rgb(28, 28, 28); /* Your dark background */
+   color: white;                       /* Default text color for the page */
+   font-family: Verdana, Geneva, Tahoma, sans-serif; /* Primary font for the page */
+}
+
+.namepage {
+   text-transform: capitalize;
+ }
+ 
+/* === Body Layout & Centering === */
+body {
+   display: flex;            /* Enables Flexbox */
+   flex-direction: column;   /* Stacks direct children vertically */
+   justify-content: center;  /* Centers direct children vertically on the page */
+   align-items: center;      /* Centers direct children horizontally on the page */
+   min-height: 100vh;        /* Ensures body takes up at least full viewport height for robust vertical centering */
+   text-align: center;       /* Centers text *within* block-level children (like paragraphs in the form, or h1/h3 if they don't have their own) */
+   /* You had a font-family here: font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; */
+   /* It's generally better to set a base font on html,body and override for specific elements if needed. */
+   /* If you still want Arial as a fallback for body's direct text content, you can add it back. */
+   }
+/* === Form Styling === */
+form {
+   width: 320px;             /* A slightly wider form, adjust as needed */
+   max-width: 90%;           /* Ensures form is responsive on smaller screens */
+   padding: 25px;            /* Generous padding inside the form */
+   border: 1px solid #444;   /* A slightly darker border that fits the theme */
+   border-radius: 8px;       /* Rounded corners for a softer look */
+   background-color: rgb(40, 40, 40); /* A slightly lighter dark shade for the form itself to stand out */
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* A more pronounced shadow for depth */
+   margin-top: 20px;         /* Adds some space if there's content above the form (e.g. a page title) */
+   margin-bottom: 20px;      /* Adds some space below the form */
+}
+
+/* Styling for form elements - you can expand on this */
+form p { /* Targets the <p> tags specifically within your form */
+   margin-bottom: 15px; /* Space between form fields */
+   text-align: left;    /* Align labels to the left if preferred, or keep 'center' from body */
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+   width: calc(100% - 22px); /* Full width minus padding and border */
+   padding: 10px;
+   margin-top: 5px; /* Space between label (if text in <p>) and input */
+   border: 1px solid #555;
+   border-radius: 4px;
+   background-color: rgb(50, 50, 50);
+   color: white;
+   font-size: 16px;
+}
+
+form button[type="submit"] {
+   width: 100%;
+   padding: 12px;
+   background-color: rgba(203, 69, 28, 0.749); /* Your Metallica-esque orange */
+   color: white;
+   border: none;
+   border-radius: 4px;
+   font-size: 16px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+   background-color: rgba(223, 89, 48, 0.9); /* Lighter on hover */
+}
+
+.red {
+    color: red; }
+    
+/* === Typography === */
+h1 {
+   text-align: center;
+   color: white; /* Explicitly set color if not inheriting properly */
+   margin-bottom: 20px; /* Space below main headings */
+   font-size: 32px; /* Adjust as needed */
+}
+
+h2 { /* For general use */
+   font-family: Verdana, Geneva, Tahoma, sans-serif; /* Consistent with base */
+   text-align: center;
+   color: rgb(160, 160, 160); /* Slightly brighter than your original for better contrast */
+   font-size: 28px; /* Adjusted from 40px for better hierarchy with h1 */
+   margin-top: 30px;
+   margin-bottom: 15px;
+}
+
+/* Style for the login success message and date (on oi.html) */
+h3 {
+   text-align: center;
+   color: rgb(190, 190, 190); /* Slightly brighter */
+   font-weight: bold;
+   font-family: 'Cascadia Code', Consolas, 'Courier New', monospace; /* Added more common fallbacks */
+   font-size: 20px;
+   line-height: 1.6; /* Improved readability for multi-line h3s */
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
+/* General paragraph styling (can be used for the date on oi.html if you change it from h3) */
+p {
+   color: rgb(180, 180, 180);
+   font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
+   font-size: 16px; /* Adjusted for better readability */
+   line-height: 1.5;
+   margin-top: 5px;
+   margin-bottom: 10px; /* Default spacing for paragraphs */
+}
+

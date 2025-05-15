@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>login</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <body>
+    <!-- Section to display flashed messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes" style="list-style-type:none; padding:0; margin:10px 0;">
+        {% for category, message in messages %}
+          {% if category == 'success' %}
+            <li style="background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 5px; border-radius: 5px;">{{ message }}</li>
+          {% elif category == 'error' %}
+            <li style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; margin-bottom: 5px; border-radius: 5px;">{{ message }}</li>
+          {% else %}
+            <li style="background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; padding: 10px; margin-bottom: 5px; border-radius: 5px;">{{ message }}</li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <!-- End of flashed messages section -->
+
+    <h1> Trocar senha</h1>
+    <p>confirme seu usuario e senha</p>
+<form method="post" action="/login">
+    <p>Username <input type="text" name="username" required></p>
+    <p>Password <input type="password" name="password" required></p>
+    <button type="submit">Log in</button>
+</form>
+</body>
+</html>
