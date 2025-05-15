@@ -1,40 +1,19 @@
-# nixpacks.toml
+# nixpacks.toml - Attempt 2
 
-# Explicitly tell Nixpacks to use the Python provider.
-providers = ["python"]
+# Explicitly tell Nixpacks to ONLY use the Python provider,
+# overriding any auto-detected ones.
+providers = ["python"] # No "..."
 
 [phases.setup]
 # Install Python 3.11 and GDBM from Nixpkgs.
-# This makes python3.11 available. We'll then ensure 'python' and 'python3' commands
-# point to this, or that Nixpacks uses the versioned command.
+# pkgs.python311 provides the python3.11 executable.
 nixPkgs = ["pkgs.gdbm", "pkgs.python311"]
 
-[phases.install]
-# This command runs *after* Nixpkgs are installed (from setup phase)
-# and *before* the default Python install commands (like creating venv).
-# We'll try to create symlinks so 'python' and 'python3' are available
-# and point to the Nix-installed python3.11.
-# Note: The exact path to python3.11 installed by Nix might vary slightly,
-# but it's often in a location like /nix/store/.../bin/python3.11
-# However, Nixpacks might already adjust the PATH to include it.
-#
-# Let's try to ensure the Python that Nixpacks *intends* to use for the venv
-# is correctly symlinked or that the PATH is set up for it.
-# Nixpacks documentation says it modifies PATH to use the venv python binary later,
-# but the 'python: command not found' happens *during* venv creation.
-#
-# An alternative here, if Nixpacks doesn't automatically make 'python' available
-# from the nixPkgs installation, is to rely on the [python].version setting below
-# and hope Nixpacks uses the correct versioned command (e.g., python3.11).
-#
-# Let's first try without custom install commands and rely on the [python] version setting.
-# If 'python: command not found' persists, we might need to add symlinking here.
-# cmds = [
-#   "ln -sf $(which python3.11) /usr/local/bin/python",
-#   "ln -sf $(which python3.11) /usr/local/bin/python3"
-# ]
+# We are not using [phases.install.cmds] for now, to keep it simple.
+# The [python].version setting should be the primary way to control this.
 
 [python]
-# Tell the Nixpacks Python provider which version to use.
-# Nixpacks should use this version (e.g., python3.11) to run its commands.
-version = "3.11" # Default is 3.11 according to Nixpacks docs [2]
+# Tell the Nixpacks Python provider which version to use for all its operations.
+# Nixpacks should internally use the correct executable for this version,
+# e.g., python3.11 -m venv ...
+version = "3.11"
