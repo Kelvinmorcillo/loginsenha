@@ -75,6 +75,12 @@ def index():
     except FileNotFoundError:
         return "login.html not found!"
     return page
-
+# This is the standard Python way to check if the script is being run directly
+# If it is, then it starts the Flask development server
+# --- Standard Run Settings ---
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True) # Or any port you like, debug=True is handy
+    port = int(os.environ.get("PORT", 5000))  # Use the PORT environment variable
+    app.run(host="0.0.0.0", port=port)  # Listen on 0.0.0.0 and use the specified port
+
+  # You can change 81 to 5000 if you prefer, or remove host and port arguments entirely.
+    
