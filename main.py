@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, flash, url_for
 import shelve
+import os
 
 
 app = Flask(__name__, static_url_path="/static")
