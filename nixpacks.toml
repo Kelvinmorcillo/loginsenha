@@ -1,24 +1,40 @@
 # nixpacks.toml
 
 # Explicitly tell Nixpacks to use the Python provider.
-# This helps ensure the Python build plan is activated.
 providers = ["python"]
 
 [phases.setup]
-# Install gdbm from Nixpkgs for shelve support.
-# Also, let's ensure a specific version of Python is installed via Nixpkgs
-# to make sure a python executable is available.
-# We'll use python311 as it's listed as the default by Nixpacks.
+# Install Python 3.11 and GDBM from Nixpkgs.
+# This makes python3.11 available. We'll then ensure 'python' and 'python3' commands
+# point to this, or that Nixpacks uses the versioned command.
 nixPkgs = ["pkgs.gdbm", "pkgs.python311"]
 
-# You can also specify other system packages here if needed in the future, e.g.,
-# aptPkgs = ["some-other-package"] # If Nixpacks supports APT packages directly in this way
+[phases.install]
+# This command runs *after* Nixpkgs are installed (from setup phase)
+# and *before* the default Python install commands (like creating venv).
+# We'll try to create symlinks so 'python' and 'python3' are available
+# and point to the Nix-installed python3.11.
+# Note: The exact path to python3.11 installed by Nix might vary slightly,
+# but it's often in a location like /nix/store/.../bin/python3.11
+# However, Nixpacks might already adjust the PATH to include it.
+#
+# Let's try to ensure the Python that Nixpacks *intends* to use for the venv
+# is correctly symlinked or that the PATH is set up for it.
+# Nixpacks documentation says it modifies PATH to use the venv python binary later,
+# but the 'python: command not found' happens *during* venv creation.
+#
+# An alternative here, if Nixpacks doesn't automatically make 'python' available
+# from the nixPkgs installation, is to rely on the [python].version setting below
+# and hope Nixpacks uses the correct versioned command (e.g., python3.11).
+#
+# Let's first try without custom install commands and rely on the [python] version setting.
+# If 'python: command not found' persists, we might need to add symlinking here.
+# cmds = [
+#   "ln -sf $(which python3.11) /usr/local/bin/python",
+#   "ln -sf $(which python3.11) /usr/local/bin/python3"
+# ]
 
 [python]
-# Tell the Nixpacks Python provider which version to use for creating the virtual environment.
-# This should match one of the versions Nixpacks supports (e.g., 3.8, 3.9, 3.10, 3.11, 3.12).
-# Let's stick with 3.11, which is a good, stable default according to Nixpacks docs [1].
-version = "3.11"
-
-# If you were using poetry or pdm, you would configure them here, but you're using requirements.txt.
-# installCommand = "pip install -r requirements.txt" # This is usually the default and might not be needed here if Nixpacks handles it.
+# Tell the Nixpacks Python provider which version to use.
+# Nixpacks should use this version (e.g., python3.11) to run its commands.
+version = "3.11" # Default is 3.11 according to Nixpacks docs [2]
