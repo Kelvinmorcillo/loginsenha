@@ -1,16 +1,24 @@
 # nixpacks.toml
 
-[phases.setup]
-# This tells Nixpacks to install the 'gdbm' package from the Nixpkgs collection
-# before building your Python environment.
-# 'pkgs' is a common way to refer to the Nix packages collection.
-# The exact package name might vary slightly, but 'gdbm' is very common.
-# Another possibility if just 'gdbm' doesn't work could be related to python-specific bindings,
-# but typically installing the main 'gdbm' library is enough for Python's built-in dbm module to find it.
-nixPkgs = ["pkgs.gdbm"]
+# Explicitly tell Nixpacks to use the Python provider.
+# This helps ensure the Python build plan is activated.
+providers = ["python"]
 
-# If you need a specific Python version (though Nixpacks usually detects it from requirements.txt or runtime files)
-# you can also specify it here, for example:
-# [override]
-# pythonVersion = "3.11" 
-# But usually, just adding the nixPkgs for gdbm is what's needed for this specific error.
+[phases.setup]
+# Install gdbm from Nixpkgs for shelve support.
+# Also, let's ensure a specific version of Python is installed via Nixpkgs
+# to make sure a python executable is available.
+# We'll use python311 as it's listed as the default by Nixpacks.
+nixPkgs = ["pkgs.gdbm", "pkgs.python311"]
+
+# You can also specify other system packages here if needed in the future, e.g.,
+# aptPkgs = ["some-other-package"] # If Nixpacks supports APT packages directly in this way
+
+[python]
+# Tell the Nixpacks Python provider which version to use for creating the virtual environment.
+# This should match one of the versions Nixpacks supports (e.g., 3.8, 3.9, 3.10, 3.11, 3.12).
+# Let's stick with 3.11, which is a good, stable default according to Nixpacks docs [1].
+version = "3.11"
+
+# If you were using poetry or pdm, you would configure them here, but you're using requirements.txt.
+# installCommand = "pip install -r requirements.txt" # This is usually the default and might not be needed here if Nixpacks handles it.
