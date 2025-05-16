@@ -11,7 +11,9 @@ users = {
     "mae": {"password": "mae"},
     "tia": {"password": "cida"},
     "jean": {"password": "jebz"},
-    "taigo": {"password": "taigo"}
+    "taigo": {"password": "taigo"},
+    "patrice": {"password": "s2"},
+    "neide": {"password": "neide"}
 }
 
 @app.route("/login", methods=["POST"])
