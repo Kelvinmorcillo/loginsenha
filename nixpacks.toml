@@ -1,11 +1,11 @@
 providers = ["python"]
 
 [phases.setup]
-nixPkgs = ["...", "pkgs.gdbm"]
+nixPkgs = ["...", "pkgs.gdbm"]  # Keep defaults + add GDBM
 
 [phases.install]
+# Explicitly use python3.11 for venv creation
 cmds = [
-  # Explicitly use python3.11 to create the venv
   "python3.11 -m venv /opt/venv",
   ". /opt/venv/bin/activate && pip install -r requirements.txt"
 ]
