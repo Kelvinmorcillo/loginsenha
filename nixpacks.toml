@@ -1,15 +1,4 @@
-# nixpacks.toml - Simplest attempt to force Python 3.11 availability
-
-providers = ["python"] # Only use the Python provider
+providers = ["python"]
 
 [phases.setup]
-# This ensures python3.11 and gdbm are available in the environment.
-# The Python provider should pick up this Python version.
-nixPkgs = ["pkgs.python311", "pkgs.gdbm"]
-
-# No [phases.install] cmds for now.
-
-[python]
-# This tells the Python provider to target Python 3.11.
-# It should use python3.11 -m venv ... internally.
-version = "3.11"
+nixPkgs = ["...", "pkgs.gdbm"]
