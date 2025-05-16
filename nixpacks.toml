@@ -1,7 +1,4 @@
-# nixpacks.toml
 providers = ["python"]
 
 [phases.setup]
-# Use "..." to include Nixpacks' default packages (which should include Python based on .python-version or defaults).
-# Then, add pkgs.gdbm for shelve support.
-nixPkgs = ["...", "pkgs.gdbm"]
+nixPkgs = ["...", "pkgs.gdbm"]  # Retain defaults + add GDBM
